@@ -1,3 +1,4 @@
+import setup_path
 import airsim
 import cv2
 import numpy as np

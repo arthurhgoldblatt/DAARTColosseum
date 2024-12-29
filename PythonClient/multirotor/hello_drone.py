@@ -41,7 +41,7 @@ state = client.getMultirotorState()
 print("state: %s" % pprint.pformat(state))
 
 airsim.wait_key('Press any key to move vehicle to (-10, 10, -10) at 5 m/s')
-client.moveToPositionAsync(-10, 10, -10, 5).join()
+client.moveToPositionAsync(-200, -200, -200, 5).join()
 
 client.hoverAsync().join()
 
@@ -77,7 +77,7 @@ for idx, response in enumerate(responses):
         airsim.write_file(os.path.normpath(filename + '.png'), response.image_data_uint8)
     else: #uncompressed array
         print("Type %d, size %d" % (response.image_type, len(response.image_data_uint8)))
-        img1d = np.fromstring(response.image_data_uint8, dtype=np.uint8) # get numpy array
+        img1d = np.frombuffer(response.image_data_uint8, dtype=np.uint8) # get numpy array
         img_rgb = img1d.reshape(response.height, response.width, 3) # reshape array to 4 channel image array H X W X 3
         cv2.imwrite(os.path.normpath(filename + '.png'), img_rgb) # write to png
 
